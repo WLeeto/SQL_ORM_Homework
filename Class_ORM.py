@@ -49,3 +49,4 @@ class ORM:
             }[record.get('model')]
             self.session.add(model(**record.get('fields')))
         self.session.commit()
+

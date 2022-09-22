@@ -21,6 +21,8 @@ class Book(Base):
     title = sq.Column(sq.String(length=60), nullable=False)
     id_publisher = sq.Column(sq.Integer, sq.ForeignKey("publisher.id"), nullable=False)
 
+    publisher = relationship(Publisher, backref="book")
+
 
 class Shop(Base):
     __tablename__ = "shop"
@@ -37,6 +39,9 @@ class Stock(Base):
     id_shop = sq.Column(sq.Integer, sq.ForeignKey("shop.id"), nullable=False)
     count = sq.Column(sq.Integer, sq.CheckConstraint('count>=0'))
 
+    book = relationship(Book, backref="stock")
+    shop = relationship(Shop, backref="stock")
+
 
 class Sale(Base):
     __tablename__ = "sale"
@@ -47,10 +52,14 @@ class Sale(Base):
     id_stock = sq.Column(sq.Integer, sq.ForeignKey("stock.id"), nullable=False)
     count = sq.Column(sq.Integer, sq.CheckConstraint('count>0'))
 
+    stock = relationship(Stock, backref="sale")
+
 
 def create_tables(engine):
     Base.metadata.create_all(engine)
+    print('Структура БД создана')
 
 
 def delete_tables(engine):
     Base.metadata.drop_all(engine)
+    print('Структура БД удалена')

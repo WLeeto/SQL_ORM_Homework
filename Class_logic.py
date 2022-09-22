@@ -47,7 +47,7 @@ class Logic:
         self.db.find_publisher(name=name)
 
     def fill_bd(self):
-        file = input('Введите путь до фаила')
+        file = input('Введите путь до фаила: ')
         self.db.fill_db(filepath=file)
 
     def help(self):
@@ -56,5 +56,6 @@ class Logic:
               '2 - Поиск издателя по имени\n'
               '0 - Создать структуру БД согласно заданию\n'
               '9 - Удалить структуру БД\n'
-              '8 - Заполнить БД (в разработке)\n')
+              '8 - Заполнить БД (в разработке)\n'
+              'q - Выход')
 
