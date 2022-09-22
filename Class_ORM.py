@@ -33,6 +33,8 @@ class ORM:
         elif name is not None:
             for publisher in self.session.query(Publisher).filter(Publisher.name == name).all():
                 print(publisher)
+        else:
+            print('Ничего не найдено')
         self._end_session()
 
     def fill_db(self, filepath):
@@ -49,4 +51,5 @@ class ORM:
             }[record.get('model')]
             self.session.add(model(**record.get('fields')))
         self.session.commit()
+        print('БД заполнена')
 
