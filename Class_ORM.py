@@ -10,7 +10,7 @@ class ORM:
 
         self.DSN = driver + user + password + host + host_port + database_name
         self.engine = sqlalchemy.create_engine(self.DSN)
-
+        print(self.DSN)
         Session = sessionmaker(bind=self.engine)
         self.session = Session()
 
@@ -37,6 +37,14 @@ class ORM:
             print('Ничего не найдено')
         self._end_session()
 
+    def find_shop(self, publisher_id=None, publisher_name=None):
+        if publisher_id is not None:
+            for shop in self.session.query(Shop).join(Stock).join(Book).join(Publisher).filter(Publisher.id == publisher_id).all():
+                print(shop)
+        elif publisher_name is not None:
+            for shop in self.session.query(Shop).join(Stock).join(Book).join(Publisher).filter(Publisher.name == publisher_name).all():
+                print(shop)
+
     def fill_db(self, filepath):
         with open(filepath, 'r') as fd:
             data = json.load(fd)
@@ -53,3 +61,8 @@ class ORM:
         self.session.commit()
         print('БД заполнена')
 
+
+if __name__ == "__main__":
+    db = ORM(password='6950dc6c7@')
+
+    db.find_shop('Microsoft Press')

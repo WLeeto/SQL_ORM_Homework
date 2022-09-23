@@ -40,11 +40,21 @@ class Logic:
 
     def find_publisher_by_id(self):
         id = input("Введите id издателя: ")
+        print(f'\nИздателя с id{id} продают следующие магазины: ')
         self.db.find_publisher(id=id)
 
     def find_publisher_by_name(self):
         name = input("Введите имя: ")
+        print(f'\nИздателя с именем{name} продают следующие магазины: ')
         self.db.find_publisher(name=name)
+
+    def find_shop_by_p_id(self):
+        publisher_id = input("Введите id издателя: ")
+        self.db.find_shop(publisher_id=publisher_id)
+
+    def find_shop_by_p_name(self):
+        publisher_name = input("Введите имя издателя: ")
+        self.db.find_shop(publisher_name=publisher_name)
 
     def fill_bd(self):
         file = input('Введите путь до фаила: ')
@@ -54,6 +64,8 @@ class Logic:
         print('Я умею делать следующее:\n'
               '1 - Поиск издателя по id\n'
               '2 - Поиск издателя по имени\n'
+              '3 - Поиск магазинов по id издателя\n'
+              '4 - Поиск магазинов по имени издателя\n'
               '0 - Создать структуру БД согласно заданию\n'
               '9 - Удалить структуру БД\n'
               '8 - Заполнить БД (в разработке)\n'
